@@ -1,0 +1,15 @@
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\FlyCheap.exe
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\FlyCheap.deps.json
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\FlyCheap.runtimeconfig.json
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\FlyCheap.dll
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\FlyCheap.pdb
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.csproj.AssemblyReference.cache
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.AssemblyInfoInputs.cache
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.AssemblyInfo.cs
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.csproj.CoreCompileInputs.cache
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.dll
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\refint\FlyCheap.dll
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.pdb
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.genruntimeconfig.cache
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\ref\FlyCheap.dll
