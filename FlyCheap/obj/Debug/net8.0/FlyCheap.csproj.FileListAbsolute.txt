@@ -13,3 +13,39 @@ C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Deb
 C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.pdb
 C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.genruntimeconfig.cache
 C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\ref\FlyCheap.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\FlyCheap.exe
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\FlyCheap.deps.json
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\FlyCheap.runtimeconfig.json
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\FlyCheap.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\FlyCheap.pdb
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.csproj.AssemblyReference.cache
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.AssemblyInfoInputs.cache
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.AssemblyInfo.cs
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.csproj.CoreCompileInputs.cache
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.csproj.CopyComplete
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\refint\FlyCheap.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.pdb
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.genruntimeconfig.cache
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\ref\FlyCheap.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Humanizer.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Mono.TextTemplating.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Npgsql.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\System.CodeDom.dll
