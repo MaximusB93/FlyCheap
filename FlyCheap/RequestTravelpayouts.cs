@@ -16,7 +16,7 @@ public class RequestTravelpayouts
         $"&token={FlightSearchOptions.Token}";*/
 
     private string url =
-        $"https://api.travelpayouts.com/v1/prices/cheap?origin=MOW&destination=LED&depart_date=2023-10-26&return_date=2023-10-27&token=f10cf5f14fc4ad7bafd93c78d96ce355";
+        $"https://api.travelpayouts.com/v1/prices/cheap?origin=MOW&destination=LED&depart_date=2023-10-27&return_date=2023-10-30&token=f10cf5f14fc4ad7bafd93c78d96ce355";
 
     public async Task<string> RequestGet()
     {
@@ -24,15 +24,11 @@ public class RequestTravelpayouts
         return result;
     }
 
-    public ResponseDataTickets DeserializeJson()
+    public ResponseDataTickets? DeserializeJson()
     {
         var task = RequestGet();
         task.Wait();
         var jsonToDataTickets = JsonConvert.DeserializeObject<ResponseDataTickets>(task.Result);
-        jsonToDataTickets.data.LED._1.Departure_at = jsonToDataTickets.data.LED._1.Departure_at.ToUniversalTime();
-        jsonToDataTickets.data.LED._1.Return_at = jsonToDataTickets.data.LED._1.Return_at.ToUniversalTime();
-        jsonToDataTickets.data.LED._1.Expires_at = jsonToDataTickets.data.LED._1.Expires_at.ToUniversalTime();
         return jsonToDataTickets;
-        Console.ReadLine();
     }
 }
