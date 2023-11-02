@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FlyCheap.Model;
+using Newtonsoft.Json;
 
 namespace FlyCheap;
 
@@ -30,5 +31,5 @@ public class RequestTravelpayouts
         task.Wait();
         var jsonToDataTickets = JsonConvert.DeserializeObject<ResponseDataTickets>(task.Result);
         return jsonToDataTickets;
-    }
+     }
 }

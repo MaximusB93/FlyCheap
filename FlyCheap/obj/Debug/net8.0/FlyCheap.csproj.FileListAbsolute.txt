@@ -70,3 +70,4 @@ C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\bin\Deb
 C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\System.CodeDom.dll
 C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.csproj.CopyComplete
+C:\Users\Professional\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Telegram.Bot.dll

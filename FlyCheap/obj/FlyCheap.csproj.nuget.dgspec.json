@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Академия Трафика\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj": {}
+    "C:\\Users\\Professional\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Академия Трафика\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj": {
+    "C:\\Users\\Professional\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Академия Трафика\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj",
+        "projectUniqueName": "C:\\Users\\Professional\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj",
         "projectName": "FlyCheap",
-        "projectPath": "C:\\Users\\Академия Трафика\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj",
-        "packagesPath": "C:\\Users\\Академия Трафика\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Академия Трафика\\RiderProjects\\FlyCheap\\FlyCheap\\obj\\",
+        "projectPath": "C:\\Users\\Professional\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj",
+        "packagesPath": "C:\\Users\\Professional\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Professional\\RiderProjects\\FlyCheap\\FlyCheap\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Академия Трафика\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Professional\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,6 +57,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[7.0.3, )"
+            },
+            "Telegram.Bot": {
+              "target": "Package",
+              "version": "[19.0.0, )"
             }
           },
           "imports": [

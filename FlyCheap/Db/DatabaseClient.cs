@@ -1,4 +1,4 @@
-﻿namespace FlyCheap;
+﻿namespace FlyCheap.Db;
 
 public class DatabaseClient
 {

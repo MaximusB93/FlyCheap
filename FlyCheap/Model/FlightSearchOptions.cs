@@ -1,4 +1,4 @@
-﻿namespace FlyCheap;
+﻿namespace FlyCheap.Model;
 
 public class FlightSearchOptions
 {
