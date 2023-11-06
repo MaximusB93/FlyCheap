@@ -2,7 +2,7 @@
 
 public class DatabaseClient
 {
-    private RequestTravelpayouts _requestTravelpayouts = new RequestTravelpayouts();
+    /*private RequestTravelpayouts _requestTravelpayouts = new RequestTravelpayouts();
 
     public void RequestDb()
     {
@@ -11,5 +11,5 @@ public class DatabaseClient
             appDbContext.DataTickets.Add(_requestTravelpayouts.DeserializeJson().data.LED._1);
             appDbContext.SaveChanges();
         }
-    }
+    }*/
 }

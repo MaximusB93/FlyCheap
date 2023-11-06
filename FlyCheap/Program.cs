@@ -7,7 +7,6 @@ TelegramBot telegramBot = new TelegramBot();
 
 telegramBot.Start();
 Console.ReadLine();
-//TgBot.Main2();
 // requestTravelpayouts.RequestGet();
 // requestTravelpayouts.DeserializeJson();
 
