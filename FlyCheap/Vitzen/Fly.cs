@@ -1,4 +1,4 @@
-﻿namespace FlyCheap;
+﻿namespace FlyCheap.Vitzen;
 
 public class Fly
 {

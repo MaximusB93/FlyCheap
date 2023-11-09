@@ -1,4 +1,4 @@
-﻿namespace FlyCheap;
+﻿namespace FlyCheap.StateModels;
 
 public class TgUser
 {

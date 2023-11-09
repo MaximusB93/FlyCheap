@@ -1,4 +1,6 @@
-﻿namespace FlyCheap;
+﻿using FlyCheap.StateModels;
+
+namespace FlyCheap.Vitzen;
 
 public class UserUtils
 {

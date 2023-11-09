@@ -1,19 +1,18 @@
-﻿using FlyCheap.Model;
+﻿using FlyCheap.Api;
+using FlyCheap.Model;
+using FlyCheap.StateModels;
 using Telegram.Bot;
-using Telegram.Bot.Types;
-using Telegram.Bot.Args;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
 
-namespace FlyCheap;
+namespace FlyCheap.TelegramBot;
 
 public class TelegramBot
 {
     public IATA _iata = new IATA();
 
-    public TelegramBotClient _botClient = new TelegramBotClient(Configuration.Token);
+    public TelegramBotClient _botClient = new TelegramBotClient(Configuration.Configuration.Token);
     public CancellationTokenSource cts = new CancellationTokenSource();
 
     private List<TgUser> _dbUsers = new List<TgUser>();

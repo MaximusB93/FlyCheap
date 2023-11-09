@@ -1,7 +1,7 @@
 ﻿using FlyCheap.Model;
 using Newtonsoft.Json;
 
-namespace FlyCheap;
+namespace FlyCheap.Api;
 
 public class RequestTravelpayouts
 {

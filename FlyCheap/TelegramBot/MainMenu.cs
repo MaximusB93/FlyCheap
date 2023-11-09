@@ -1,7 +1,6 @@
-﻿using Telegram.Bot.Requests;
-using Telegram.Bot.Types.ReplyMarkups;
+﻿using Telegram.Bot.Types.ReplyMarkups;
 
-namespace FlyCheap;
+namespace FlyCheap.TelegramBot;
 
 public class MainMenu
 {
