@@ -1,5 +1,5 @@
 ﻿using FlyCheap.Api;
-using FlyCheap.Model;
+using FlyCheap.Models;
 using FlyCheap.StateModels;
 using Telegram.Bot;
 using Telegram.Bot.Polling;

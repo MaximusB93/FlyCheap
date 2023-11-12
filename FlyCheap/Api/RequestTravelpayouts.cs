@@ -1,4 +1,4 @@
-﻿using FlyCheap.Model;
+﻿using FlyCheap.Models;
 using Newtonsoft.Json;
 
 namespace FlyCheap.Api;

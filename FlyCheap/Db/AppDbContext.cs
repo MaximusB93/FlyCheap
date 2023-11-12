@@ -1,4 +1,4 @@
-﻿using FlyCheap.Model;
+﻿using FlyCheap.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
