@@ -1,4 +1,5 @@
-﻿using FlyCheap.Models.JsonModel;
+﻿using System;
+using FlyCheap.Models.JsonModel;
 using FlyCheap.Models.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

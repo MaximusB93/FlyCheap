@@ -13,22 +13,22 @@ public class RequestAir
     private static readonly string alliancesUrl = "airlines_alliances.json";
     private static readonly string planesUrl = "planes.json";
     public static string[] ArrayUrl = new[] { countriesUrl, citiesUrl, airportsUrl, airlinesUrl };
-    public static string language = "ru";
+    public static string language = "ru/";
 
 
     public static async Task<string> GetJsonData()
     {
-        string url = $"{Configuration.Configuration.BaseUrl}/data/{language}/{ArrayUrl[0]}";
+        string url = $"{Configuration.Configuration.BaseUrl}/data/{language}{ArrayUrl[0]}";
         //var responseContainer = new ResponseContainer(); Под вопросом откуда берется
 
         using (var client = new HttpClient())
-        {
+        { 
             var response = await client.GetStringAsync(url);
             return response;
         }
     }
 
-    public static TOutput? DeserializeJson<TOutput>(string input) where TOutput : IEnumerable<NamedEntity>
+    public static TOutput? ConvertFromJsonToDbFormat<TOutput>(string input) where TOutput : IEnumerable<NamedEntity>
     {
         var output = JsonConvert.DeserializeObject<TOutput>(input);
         foreach (var item in output)

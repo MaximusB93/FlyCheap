@@ -6,6 +6,7 @@ namespace FlyCheap.Api;
 public class IATA
 {
     private HttpClient _httpClient = new HttpClient();
+    private string a = "ghbdtn";
 
     private async Task<string> RequestIata(string city)
     {

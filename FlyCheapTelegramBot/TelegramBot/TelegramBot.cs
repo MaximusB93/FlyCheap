@@ -1,6 +1,8 @@
 ﻿using FlyCheap.Api;
 using FlyCheap.Models;
 using FlyCheap.StateModels;
+using FlyCheap.Vitzen;
+using FlyCheapTelegramBot;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
@@ -10,7 +12,7 @@ namespace FlyCheap.TelegramBot;
 
 public class TelegramBot
 {
-    public IATA _iata = new IATA();
+    //public IATA _iata = new IATA();
 
     public TelegramBotClient _botClient = new TelegramBotClient(Configuration.Configuration.Token);
     public CancellationTokenSource cts = new CancellationTokenSource();
@@ -25,10 +27,10 @@ public class TelegramBot
 
     public async Task Start()
     {
-        _botClient.StartReceiving(HandleUpdateAsync, HandlePollingErrorAsync, _receiverOptions, cts.Token);
+        _botClient.StartReceiving(HandleUpdateAsync, Exсeptions.HandlePollingErrorAsync, _receiverOptions, cts.Token);
         var me = await _botClient.GetMeAsync();
         Console.WriteLine($"Start listening for @{me.Username}");
-        Task.Delay(TimeSpan.MaxValue);
+        await Task.Delay(Int32.MaxValue);
         cts.Cancel();
     }
 
@@ -36,13 +38,13 @@ public class TelegramBot
     //Заполнение каталога городами при старте бота
     public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken token)
     {
-        if (update.Type == UpdateType.Message && update.Message?.Text != null)
+        if (update.Type == UpdateType.Message && update.Message?.Text != null)  //Cрабатывает метод HandleCommandMessage, если приходит сообщение
         {
             await HandleCommandMessage(botClient, update, update.Message);
             return;
         }
 
-        if (update.Type == UpdateType.CallbackQuery)
+        if (update.Type == UpdateType.CallbackQuery) //Cрабатывает метод HandleCallbackQuery, если inline клавиатура
         {
             if (update.CallbackQuery != null)
                 await HandleCallbackQuery(botClient, update.CallbackQuery);
@@ -142,7 +144,7 @@ public class TelegramBot
     public async Task HandleCallbackQuery(ITelegramBotClient botClient, CallbackQuery callbackQuery)
     {
         var tgId = callbackQuery.From.Id;
-        //var user = UserUtils.GetOrCreate(tgId);
+        var user = UserUtils.GetOrCreate(tgId);
 
         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
 
@@ -159,9 +161,5 @@ public class TelegramBot
     }
 
 
-    public async Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception update,
-        CancellationToken token)
-    {
-        throw new NotImplementedException();
-    }
+
 }
