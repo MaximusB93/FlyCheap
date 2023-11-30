@@ -3,13 +3,13 @@ using Newtonsoft.Json;
 
 namespace FlyCheap.Api;
 
-public class RequestTravelpayouts
+public class ApiTravelpayoutsCopy
 {
     public static string Token = "f10cf5f14fc4ad7bafd93c78d96ce355";
     public static string Origin { get; set; }
     public static string Destination { get; set; }
-    public static string DepartDate { get; set; }
-    public static string ReturnDate { get; set; }
+    public static DateTime DepartDate { get; set; }
+    public static DateTime ReturnDate { get; set; }
     
     private HttpClient _httpClient = new HttpClient();
 
@@ -21,7 +21,7 @@ public class RequestTravelpayouts
         $"&return_date={ReturnDate}" +
         $"&token={Token}";
 
-    public RequestTravelpayouts(string origin, string destination, string departDate, string returnDate)
+    public ApiTravelpayoutsCopy(string origin, string destination, DateTime departDate, DateTime returnDate)
     {
         Origin = origin;
         Destination = destination;

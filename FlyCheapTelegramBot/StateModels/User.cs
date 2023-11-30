@@ -1,21 +1,24 @@
-﻿using FlyCheap.Vitzen;
-
-namespace FlyCheap.StateModels;
+﻿namespace FlyCheapTelegramBot.StateModels;
 
 public class User
 {
     public long TgId { get; set; }
     public Role Role { get; set; }
     public InputState InputState { get; set; }
-    public string UserName { get; set; }
     public bool IsRegistered { get; set; }
 }
 
 public enum InputState
 {
-    Nothing,
+    None,
     DepartureСity,
-    ArrivalСity,
+    ArrivalCity,
     DepartureDate,
     FullState
+}
+
+public enum Role
+{
+    User,
+    Admin
 }

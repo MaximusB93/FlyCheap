@@ -5,7 +5,7 @@ namespace FlyCheap.Db;
 
 public class DatabaseClient
 {
-    //private RequestTravelpayouts _requestTravelpayouts = new RequestTravelpayouts();
+    //private ApiTravelpayoutsCopy _requestTravelpayouts = new ApiTravelpayoutsCopy();
 
     public void RequestDb<TOutput>() where TOutput : IEnumerable<NamedEntity>
     {

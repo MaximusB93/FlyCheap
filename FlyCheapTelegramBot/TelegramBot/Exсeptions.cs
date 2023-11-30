@@ -1,4 +1,6 @@
-﻿namespace FlyCheapTelegramBot;
+﻿using Telegram.Bot;
+
+namespace FlyCheapTelegramBot.TelegramBot;
 
 public static class Exсeptions
 {

@@ -1,20 +1,22 @@
-﻿using FlyCheap.Api;
+﻿using System.Text;
+using FlyCheap;
+using FlyCheap.Api;
+using FlyCheap.Api.Configuration;
 using FlyCheap.Models;
-using FlyCheap.StateModels;
-using FlyCheap.Vitzen;
-using FlyCheapTelegramBot;
+using FlyCheapTelegramBot.Catalog;
+using FlyCheapTelegramBot.StateModels;
+using FlyCheapTelegramBot.Utils;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Fly = FlyCheapTelegramBot.StateModels.Fly;
 
-namespace FlyCheap.TelegramBot;
+namespace FlyCheapTelegramBot.TelegramBot;
 
 public class TelegramBot
 {
-    //public IATA _iata = new IATA();
-
-    public TelegramBotClient _botClient = new TelegramBotClient(Configuration.Configuration.Token);
+    public TelegramBotClient _botClient = new TelegramBotClient(Configuration.Token);
     public CancellationTokenSource cts = new CancellationTokenSource();
 
     private List<TgUser> _dbUsers = new List<TgUser>();
@@ -34,114 +36,145 @@ public class TelegramBot
         cts.Cancel();
     }
 
-    //Метод для обработки обновлений бота (здесь бот прослушивает сообщения {текстовые/c inline клавиатуры)
-    //Заполнение каталога городами при старте бота
+    //Метод для обработки обновлений бота, бот прослушивает сообщения или нажатия inline клавиатуры)
     public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken token)
     {
-        if (update.Type == UpdateType.Message && update.Message?.Text != null)  //Cрабатывает метод HandleCommandMessage, если приходит сообщение
+        //Заполнение каталога городами при старте бота
+        if (CitiesCatalog.cities.Count == 0)
+        {
+            CitiesCatalog.cities = Catalogs.GetCities();
+        }
+
+        //Cрабатывает метод HandleCommandMessage, если приходит сообщение
+        if (update.Type == UpdateType.Message && update.Message?.Text != null)
         {
             await HandleCommandMessage(botClient, update, update.Message);
             return;
         }
-
-        if (update.Type == UpdateType.CallbackQuery) //Cрабатывает метод HandleCallbackQuery, если inline клавиатура
+        
+       //Cрабатывает метод HandleCallbackQuery, если inline клавиатура
+        if (update.Type == UpdateType.CallbackQuery) 
         {
             if (update.CallbackQuery != null)
-                await HandleCallbackQuery(botClient, update.CallbackQuery);
+                await HandleCallbackQuery(botClient, update.CallbackQuery, update.Message);
         }
-    }
-
-    public TgUser GetUser(long tgId)
-    {
-        TgUser tgUser = null;
-        tgUser = _dbUsers.Find(x => x.TgId == tgId);
-        if (tgUser == null)
-        {
-            tgUser = new TgUser { TgId = tgId };
-            _dbUsers.Add(tgUser);
-        }
-
-        return tgUser;
     }
 
     //Метод ожидающий от пользователей ввода сообщения и обрабатывающий их
     public async Task HandleCommandMessage(ITelegramBotClient botClient, Update update, Message message)
     {
         var tgId = message.From.Id;
-        var user = GetUser(tgId);
+        var user = UserUtils.GetOrCreate(tgId);
         var text = message.Text.ToLower();
-        
-       //Команда /start
+
+        //Команда /start
         if (text == "/start")
         {
             await botClient.SendTextMessageAsync(message.Chat.Id, "Выберите действие:",
                 replyMarkup: MainMenu.GetMainMenu());
         }
-        
-        //Город вылета
-        else if (String.IsNullOrEmpty(user.DepartureСity))
-        {
-            user.DepartureСity = text;
-            var departureCitiesIata = _iata.DeserializeJson(user.DepartureСity);
-            user.iataDepartureСity = departureCitiesIata.destination.iata;
-            if (departureCitiesIata.origin == null)
-            {
-                await botClient.SendTextMessageAsync(message.Chat.Id, $"Ошибка в городе отправления, введите снова");
-                user.DepartureСity = null;
-            }
-            else
-            {
-                await botClient.SendTextMessageAsync(message.Chat.Id, "Введите город назначения");
-            }
-        }
-        
-        //Город назначения
-        else if (String.IsNullOrEmpty(user.ArrivalСity))
-        {
-            user.ArrivalСity = text;
-            var arrivalCitiesIata = _iata.DeserializeJson(user.ArrivalСity);
-            user.iataArrivalСity = arrivalCitiesIata.destination.iata;
-            if (arrivalCitiesIata.destination == null)
-            {
-                await botClient.SendTextMessageAsync(message.Chat.Id, $"Ошибка в городе назначения, введите снова");
-                user.ArrivalСity = null;
-            }
-            else
-                await botClient.SendTextMessageAsync(message.Chat.Id,
-                    $"Ваш город отправления {user.DepartureСity} и город прибытия {user.ArrivalСity}");
 
-            Task.Delay(3000);
-            await botClient.SendTextMessageAsync(message.Chat.Id, $"Введите дату отправления в формате ДД.ММ.ГГГГ");
-        }
-        
-        //Дата вылета
-        else if (user.DepartureAt == DateTime.MinValue)
+        string? selectedCityFromList;
+        Fly? flight;
+        switch (user.InputState)
         {
-            user.DepartureAt = DateTime.Parse(text);
-            await botClient.SendTextMessageAsync(message.Chat.Id, $"Введите дату обратного рейса в формате ДД.ММ.ГГГГ");
+            case InputState.None:
+                return;
+
+            //Парсим город вылета
+            case InputState.DepartureСity:
+                selectedCityFromList = DataBaseUtils.ParsingCity(tgId, text, user);
+                if (selectedCityFromList != null)
+                {
+                    flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
+                    DataBaseUtils.SaveResultsToList(flight.DepartureCity, selectedCityFromList, InputState.ArrivalCity,
+                        user);
+                    DataBaseUtils.SendMessage(botClient, tgId,
+                        $"Ваш город вылета {selectedCityFromList}, введите город назначения");
+                }
+                else
+                    DataBaseUtils.SendMessage(botClient, tgId, "Город отправления не найден - повторите ввод");
+
+                break;
+
+            //Парсим город прибытия
+            case InputState.ArrivalCity:
+                selectedCityFromList = DataBaseUtils.ParsingCity(tgId, text, user);
+                if (selectedCityFromList != null)
+                {
+                    flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
+                    DataBaseUtils.SaveResultsToList(flight.ArrivalCity, selectedCityFromList, InputState.DepartureDate,
+                        user);
+                    DataBaseUtils.SendMessage(botClient, tgId,
+                        $"Ваш город назначение {selectedCityFromList}, введите дату вылета в формате ДД.ММ.ГГГГ");
+                }
+                else
+                    DataBaseUtils.SendMessage(botClient, tgId, "Город назначения не найден - повторите ввод");
+
+                break;
+
+            //Парсим дату отправления
+            case InputState.DepartureDate:
+                var dateFromMessage = text;
+                if (DateTime.TryParse(dateFromMessage, out DateTime parseDateTime))
+                {
+                    flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
+                    DataBaseUtils.SaveResultsToList(flight.DepartureDate, parseDateTime, InputState.FullState, user);
+                }
+                else
+                    await botClient.SendTextMessageAsync(tgId,
+                        "Дата вылета введена неверно - повторите ввод в формате  дд.мм.гггг");
+
+                break;
+
+            //Все данные получены, выводим ответ
+            case InputState.FullState:
+                flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
+                var result = GetFinalTickets(flight);
+                await botClient.SendTextMessageAsync(tgId, "Результат поиска:" + result);
+                break;
+
+            //Дефолтный ответ бота в случае неправильного ввода команды пользователем
+            default:
+                await botClient.SendTextMessageAsync(tgId,
+                    $"Для начала работы с ботом FlyCheap, введите команду /start \n");
+                break;
         }
-        
-        //Дата обратного рейса
-        else if (user.ReturnAt == DateTime.MinValue)
+    }
+
+    public string GetFinalTickets(Fly fly)
+    {
+        var sb = new StringBuilder();
+        var apiTravelpayounts =
+            new ApiTravelpayoutsCopy(fly.DepartureCity, fly.ArrivalCity, fly.DepartureDate, fly.DepartureDate);
+        //Дописать вывод в бота информацию
+
+        if (apiTravelpayounts != 0)
         {
-            user.ReturnAt = DateTime.Parse(text);
-            ResponseDataTickets responseDataTickets = new ResponseDataTickets();
+            foreach (var flightData in apiTravelpayounts)
+            {
+                sb.Append("Аэропорт отправления: " + flightData.origin_airport + "\n");
+                sb.Append("Аэропорт назначения: " + flightData.destination_airport + "\n");
+                sb.Append("Время отправления: " + flightData.departure_at + "\n");
+                sb.Append("Авиакомпания: " + flightData.airline + "\n");
+                sb.Append("Цена: " + flightData.price + " " + apiTravelpayounts.currency + "\n");
+                sb.Append("Продолжительность полёта: " + flightData.duration + " Мин." + "\n");
+                sb.Append("Номер рейса: " + flightData.flight_number + "\n");
+                sb.Append("----------------------------------------------" + "\n");
+            }
 
-            RequestTravelpayouts requestTravelpayouts =
-                new RequestTravelpayouts(user.iataDepartureСity, user.iataArrivalСity,
-                    user.DepartureAt.ToString("yyyy-MM-dd"),
-                    user.ReturnAt.ToString("yyyy-MM-dd"));
+            return sb.ToString();
+        }
 
-            var tikets = requestTravelpayouts.DeserializeJson();
-            await botClient.SendTextMessageAsync(message.Chat.Id,
-                $"Из города {user.DepartureСity} в {user.ArrivalСity}, " +
-                $"стоимость - {tikets.data.LED._1.Price}, " +
-                $"авиакомпания - {tikets.data.LED._1.Airline}");
+        else
+        {
+            return "Авиарейсов по данному направлению не найдено!";
         }
     }
 
     //Метод обрабатывающий нажатие inline-кнопок
-    public async Task HandleCallbackQuery(ITelegramBotClient botClient, CallbackQuery callbackQuery)
+    //Перенести в другой класс
+    public async Task HandleCallbackQuery(ITelegramBotClient botClient, CallbackQuery callbackQuery, Message message)
     {
         var tgId = callbackQuery.From.Id;
         var user = UserUtils.GetOrCreate(tgId);
@@ -152,14 +185,22 @@ public class TelegramBot
         if (callbackQuery.Data.StartsWith("searchFlight"))
         {
             await botClient.SendTextMessageAsync(callbackQuery.Message.Chat.Id, "Введите город отправления");
+            user.InputState = InputState.DepartureСity;
+            var fly = new Fly(tgId); //Фиксируем Id юзера за поиском рейса 
+            FlightsList.flights.Add(fly); //Помещаем его в лист
+            return;
         }
 
+        //Мои авиарейсы
         if (callbackQuery.Data.StartsWith("myFlight"))
         {
             await botClient.SendTextMessageAsync(callbackQuery.Message.Chat.Id, "Мои авиарейсы");
+            return;
         }
+
+        await botClient.SendTextMessageAsync(callbackQuery.Message.Chat.Id,
+            $"You choose with data: {callbackQuery.Data}");
+        //await botClient.SendTextMessageAsync(message.Chat.Id, "Бот не умеет распознавать сообщения. \r\n Выберите один из вариантов", replyMarkup: MainMenu.GetMainMenu());
+        return;
     }
-
-
-
 }

@@ -1,4 +1,4 @@
-﻿namespace FlyCheap.Configuration;
+﻿namespace FlyCheap.Api.Configuration;
 
 public class Configuration
 {

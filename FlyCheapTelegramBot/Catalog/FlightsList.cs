@@ -1,4 +1,6 @@
-﻿namespace FlyCheap.Vitzen;
+﻿using FlyCheapTelegramBot.StateModels;
+
+namespace FlyCheapTelegramBot.Catalog;
 
 public class FlightsList
 {

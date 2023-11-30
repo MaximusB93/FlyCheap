@@ -1,4 +1,5 @@
 ﻿using System;
+using FlyCheap.Models.Db;
 using FlyCheap.Models.JsonModel;
 using FlyCheap.Models.Utils;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,10 @@ namespace FlyCheap.Db;
 
 public class AirDbContext : DbContext
 {
-    public DbSet<AirportsJson> Airports { get; set; }
-    public DbSet<AirlinesJson> Airlines { get; set; }
-    public DbSet<CitiesJson> Cities { get; set; }
-    public DbSet<CountriesJson> Countries { get; set; }
+    public DbSet<Airports> Airports { get; set; }
+    public DbSet<Airlines> Airlines { get; set; }
+    public DbSet<Cities> Cities { get; set; }
+    public DbSet<Countries> Countries { get; set; }
 
     private readonly string ConnectionString =
         "Host=pg3.sweb.ru;Username=maksimbudn;Password=QU3WLCGWFbWRG$S8;Database=maksimbudn";

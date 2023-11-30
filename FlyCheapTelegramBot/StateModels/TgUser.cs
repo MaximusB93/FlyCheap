@@ -1,4 +1,4 @@
-﻿namespace FlyCheap.StateModels;
+﻿namespace FlyCheapTelegramBot.StateModels;
 
 public class TgUser
 {

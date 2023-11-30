@@ -1,12 +1,13 @@
-﻿using FlyCheap.StateModels;
+﻿using FlyCheapTelegramBot.Catalog;
+using FlyCheapTelegramBot.StateModels;
 
-namespace FlyCheap.Vitzen;
+namespace FlyCheapTelegramBot.Utils;
 
 public class UserUtils
 {
     public static User GetOrCreate(long tgId)
     {
-        var user = Context.Users.FirstOrDefault(x => x.TgId == tgId);
+        var user = UsersList.users.FirstOrDefault(x => x.TgId == tgId);
         if (user != null)
         {
             return user;
@@ -17,9 +18,9 @@ public class UserUtils
             TgId = tgId,
             Role = Role.User,
             IsRegistered = true,
-            InputState = InputState.Nothing
+            InputState = InputState.None
         };
-        Context.Users.Add(user);
+        UsersList.users.Add(user);
         return user;
     }
 }
