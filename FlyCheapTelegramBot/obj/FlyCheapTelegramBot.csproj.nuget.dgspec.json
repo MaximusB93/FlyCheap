@@ -1,0 +1,146 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheapTelegramBot\\FlyCheapTelegramBot.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheapTelegramBot\\FlyCheapTelegramBot.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheapTelegramBot\\FlyCheapTelegramBot.csproj",
+        "projectName": "FlyCheapTelegramBot",
+        "projectPath": "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheapTelegramBot\\FlyCheapTelegramBot.csproj",
+        "packagesPath": "C:\\Users\\mbudn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheapTelegramBot\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mbudn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj": {
+                "projectPath": "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj",
+        "projectName": "FlyCheap",
+        "projectPath": "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheap\\FlyCheap.csproj",
+        "packagesPath": "C:\\Users\\mbudn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mbudn\\RiderProjects\\FlyCheap\\FlyCheap\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mbudn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Telegram.Bot": {
+              "target": "Package",
+              "version": "[19.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ using FlyCheap.Models;
 using FlyCheap.Models.JsonModel;
 using Microsoft.EntityFrameworkCore;
 
-namespace FlyCheap;
+namespace FlyCheap.Converter;
 
 public class HumanReadableConverter
 {

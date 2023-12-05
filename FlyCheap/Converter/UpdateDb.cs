@@ -1,18 +1,11 @@
-﻿using FlyCheap.Api_Managers;
+﻿using FlyCheap.Api;
 using FlyCheap.Converter.Comparators;
 using FlyCheap.Db;
-using FlyCheap.Db_Context;
 using FlyCheap.Enums;
 using FlyCheap.Models;
-using FlyCheap.Models.AirlinesJson;
-using FlyCheap.Models.AirportsJson;
-using FlyCheap.Models.CountriesJson;
 using FlyCheap.Models.Db;
 using FlyCheap.Models.JsonModel;
-using FlyCheap.Models.JsonModels;
-using FlyCheap.Models.JsonModels.Cityes;
 using FlyCheap.Models.Utils;
-using FlyCheap.Utility_Components;
 using Microsoft.EntityFrameworkCore;
 
 //using AirportJson = FlyCheap.Models.AirportsJson.AirportJson;
@@ -36,10 +29,12 @@ public class UpdateDb
                 break;
             case TableCode.Airports:
                 var airports =
-                    CreateAirportsDb(apiForRequestDb.GetDataBase<List<AirportsJson>>(tableCode, languageCode));  //В GetDataBase получаем лист с аэропортами, а в CreateAirportsDb преобразуем из JSON формата List<AirportJson> в формат БД List<Airport>
+                    CreateAirportsDb(
+                        apiForRequestDb.GetDataBase<List<AirportsJson>>(tableCode,
+                            languageCode)); //В GetDataBase получаем лист с аэропортами, а в CreateAirportsDb преобразуем из JSON формата List<AirportJson> в формат БД List<Airport>
                 if (airports != null)
                 {
-                    RequestToDb<Airports>(airports, new AirportDbComparer());  //
+                    RequestToDb<Airports>(airports, new AirportDbComparer()); //
                 }
 
                 break;
@@ -104,30 +99,32 @@ public class UpdateDb
                     code = x.code,
                     country_code = x.country_code,
                     name = x.name,
-                    name_translations = x.name_translations.en,
+                    //name_translations = x.name_translations.en,
                     time_zone = x.time_zone,
-                    lat = x.coordinates.lat,
-                    lon = x.coordinates.lon,
+                    //coordinates = x.coordinates.lat,
+                    //coordinates = x.coordinates.lon,
                 }).ToList();
         }
 
         return default;
     }
 
-    private static List<Airport>? CreateAirportsDb(List<AirportJson> airports)  //Преобразуем из JSON формата List<AirportJson> в формат БД List<Airport>
+    private static List<Airports>?
+        CreateAirportsDb(
+            List<AirportsJson> airports) //Преобразуем из JSON формата List<AirportJson> в формат БД List<Airport>
     {
-        return airports?.Select(x => new Airport
+        return airports?.Select(x => new Airports
             {
-                Code = x.code,
-                CityCode = x.city_code,
+                code = x.code,
+                city_code = x.city_code,
                 country_code = x.country_code,
                 name = x.name,
-                NameTranslationsEn = x.name_translations.en,
-                TimeZone = x.time_zone,
-                IataType = x.iata_type,
-                Lat = x.coordinates.lat,
-                Lon = x.coordinates.lon,
-                Flightable = x.flightable,
+                name_translations = x.name_translations,
+                time_zone = x.time_zone,
+                iata_type = x.iata_type,
+                lat = x.coordinates.lat,
+                lon = x.coordinates.lon,
+                flightable = x.flightable,
             })
             // .Where(x => x.IataType == "airport")
             .ToList();
@@ -142,7 +139,7 @@ public class UpdateDb
                 {
                     code = x.code,
                     name = x.name,
-                    name_translations = x.name_translations.en,
+                    name_translations = x.name_translations,
                     is_lowcost = x.is_lowcost,
                 }).ToList();
         }

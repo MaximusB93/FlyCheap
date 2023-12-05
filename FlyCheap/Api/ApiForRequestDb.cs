@@ -1,8 +1,9 @@
 ﻿using FlyCheap.Enums;
 using FlyCheap.Models.Utils;
+using FlyCheap.Utility;
 using Newtonsoft.Json;
 
-namespace FlyCheap;
+namespace FlyCheap.Api;
 
 public class ApiForRequestDb
 {
@@ -26,29 +27,34 @@ public class ApiForRequestDb
     /// <typeparam name="TOutput"></typeparam> Всегда List! 
     /// <returns></returns>
     public TOutput? GetDataBase<TOutput>(TableCode tableCode,
-        LanguageCode languageCode = LanguageCode.Russian /*string language = "ru/"*/) where TOutput : IEnumerable<NamedEntity>
+        LanguageCode languageCode = LanguageCode.Russian /*string language = "ru/"*/)
+        where TOutput : IEnumerable<NamedEntity>
     {
         //if (file is "planes.json" or "routes.json") language = "";
 
-        var file = ParametersMap.TableFileMappings.FirstOrDefault(x => x.Key == tableCode).Value;  //Сверяем tableCode и записываем название json
-        var lang = ParametersMap.LanguageMappings.FirstOrDefault(x => x.Key == languageCode).Value; //Сверяем languageCode и записываем название json
+        var file = ParametersMap.TableFileMappings.FirstOrDefault(x => x.Key == tableCode)
+            .Value; //Сверяем tableCode и записываем название json
+        var lang = ParametersMap.LanguageMappings.FirstOrDefault(x => x.Key == languageCode)
+            .Value; //Сверяем languageCode и записываем название json
 
-        if (tableCode is TableCode.Planes or TableCode.Routes)  //Если Planes или Routes, то lang = none
+        if (tableCode is TableCode.Planes or TableCode.Routes) //Если Planes или Routes, то lang = none
         {
             lang = ParametersMap.LanguageMappings.FirstOrDefault(x => x.Key == LanguageCode.None).Value;
         }
 
-        var RequestFromDataBase = new HttpRequestForRequestFromDataBase()  //Записываем file и lang в экземпляр класса HttpRequestForRequestFromDataBase
+        //Записываем file и lang в экземпляр класса HttpRequestForRequestFromDataBase
+        var RequestFromDataBase = new HttpRequestForRequestFromDataBase()
         {
             file = file,
             //language = language,
             language = lang,
         };
 
-        var response = HttpRequest(RequestFromDataBase);  // Делаем запрос к URL, сереализуем в строку и записываем в response
+        var response =
+            HttpRequest(RequestFromDataBase); // Делаем запрос к URL, сереализуем в строку и записываем в response
         if (response.Ok)
         {
-            return ConvertFromJsonToDbFormat<TOutput>(response.content);
+            return ConvertFromJsonToDbFormat<TOutput>(response.content);  //Десериализация
         }
 
         Console.WriteLine("response.content ==> " + response.content);
@@ -64,19 +70,23 @@ public class ApiForRequestDb
         {
             try
             {
-                var response = client.GetAsync(url).Result;  //Делаем запрос к url 
+                var response = client.GetAsync(url).Result; //Делаем запрос к url 
 
-                if (response.IsSuccessStatusCode)  //Проверям код ответа, если 200, то ок
+                if (response.IsSuccessStatusCode) //Проверям код ответа, если 200, то ок
                 {
                     responseContainer.Ok = true;
-                    responseContainer.content = response.Content.ReadAsStringAsync().Result; //Сереализуем response и записываем в responseContainer 
+                    responseContainer.content =
+                        response.Content.ReadAsStringAsync()
+                            .Result; //Сереализуем response и записываем в responseContainer 
                     //Console.WriteLine("content ===> " + content);
                 }
-                else  //Если ошибка запроса
+                else //Если ошибка запроса
                 {
                     Console.WriteLine("Ошибка запроса");
                     responseContainer.Ok = false;
-                    responseContainer.content = response.Content.ReadAsStringAsync().Result;  //Сереализуем response и записываем в responseContainer 
+                    responseContainer.content =
+                        response.Content.ReadAsStringAsync()
+                            .Result; //Сереализуем response и записываем в responseContainer 
                     //Console.WriteLine("content ===> " + content);
                 }
             }
@@ -89,10 +99,11 @@ public class ApiForRequestDb
         }
     }
 
+    //Десериализация + замена значений name = null, на name="none"
     private TOutput? ConvertFromJsonToDbFormat<TOutput>(string input) where TOutput : IEnumerable<NamedEntity>
     {
-        var output = JsonConvert.DeserializeObject<TOutput>(input);  //Десериализуем в AirportJson/AirlinesJson и другие
-        
+        var output = JsonConvert.DeserializeObject<TOutput>(input); //Десериализуем в AirportJson/AirlinesJson и другие
+
         foreach (var item in output)
         {
             if (item.name == null)
@@ -100,11 +111,12 @@ public class ApiForRequestDb
                 item.name = "none"; // Заменяем значение поля name на пустую строку
             }
         }
-        
-        if (output.Any(x => x.name == null))  //Проверка  name == null
+
+        if (output.Any(x => x.name == null)) //Проверка  name == null
         {
             throw new InvalidOperationException("------>>>>Обнаружены объекты с полем name, равным null.");
         }
+
         // return default;
         return output;
     }

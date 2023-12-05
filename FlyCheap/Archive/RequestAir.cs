@@ -1,8 +1,7 @@
-﻿using FlyCheap.Models.JsonModel;
-using FlyCheap.Models.Utils;
+﻿using FlyCheap.Models.Utils;
 using Newtonsoft.Json;
 
-namespace FlyCheap.Api;
+namespace FlyCheap.Archive;
 
 public class RequestAir
 {
@@ -18,7 +17,7 @@ public class RequestAir
 
     public static async Task<string> GetJsonData()
     {
-        string url = $"{Configuration.Configuration.BaseUrl}/data/{language}{ArrayUrl[0]}";
+        string url = $"{Api.Configuration.Configuration.BaseUrl}/data/{language}{ArrayUrl[0]}";
         //var responseContainer = new ResponseContainer(); Под вопросом откуда берется
 
         using (var client = new HttpClient())

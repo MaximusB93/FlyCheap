@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace FlyCheap.Models;
+namespace FlyCheap.Archive;
 
 public class _1
 {

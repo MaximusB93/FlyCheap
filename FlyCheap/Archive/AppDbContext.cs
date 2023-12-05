@@ -1,8 +1,7 @@
-﻿using FlyCheap.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace FlyCheap.Db;
+namespace FlyCheap.Archive;
 
 public class AppDbContext: DbContext
 {

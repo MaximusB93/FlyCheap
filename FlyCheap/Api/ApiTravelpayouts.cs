@@ -1,7 +1,9 @@
-﻿using FlyCheap.Db;
+﻿using FlyCheap.Converter;
+using FlyCheap.Db;
 using FlyCheap.Models;
 using FlyCheap.Models.Db;
 using FlyCheap.Models.JsonModel;
+using FlyCheap.Utility;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -98,7 +100,7 @@ public class ApiTravelpayouts
         string url = $"https://api.travelpayouts.com/aviasales/v3/prices_for_dates?" +
                      $"origin={httpRequest.origin}&destination={httpRequest.destination}&departure_at={httpRequest.departureDate}" +
                      $"&{returnDateConstructor}unique={unique}&sorting={sorting}&direct={directFlight}" +
-                     $"&cy={currency}&limit={limit}&page={page}&one_way=true&token={apiToken}";
+                     $"&cy={currency}&limit={limit}&page={page}&one_way=true&token={Configuration.Configuration.Token}";
 
         //Console.WriteLine(url);
         using (HttpClient client = new HttpClient())

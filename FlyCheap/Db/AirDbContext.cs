@@ -27,13 +27,15 @@ public class AirDbContext : DbContext
         optionsBuilder.UseNpgsql(ConnectionString);
         optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
     }
-    /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Coordinates>()
-            .HasKey(c => c.CoordinatesId); // Замените CoordinatesId на имя свойства, которое вы хотите использовать в качестве первичного ключа
+            .HasKey(c => c.lat);
 
-        // Другие настройки модели...
-
-        base.OnModelCreating(modelBuilder);
-    }*/
+        modelBuilder.Entity<Cases>().HasKey(x => x.da);
+        modelBuilder.Entity<NameTranslations>().HasKey(x => x.en);
+        //modelBuilder.Entity<>
+        
+        //base.OnModelCreating(modelBuilder);
+    }
 }

@@ -12,9 +12,9 @@ public class Catalogs
             .AsNoTracking()
             .Select(x => x.name)
             .ToList()
-            .Union(airDbContext.Cities  //Объединение последовательностей
+            .Union(airDbContext.Cities //Объединение последовательностей
                 .AsNoTracking()
-                .Select(x => x.name_translations)
+                .Select(x => x.name_translations.en)
                 .ToList())
             .ToList();
     }

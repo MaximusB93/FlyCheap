@@ -2,6 +2,7 @@
 using FlyCheap;
 using FlyCheap.Api;
 using FlyCheap.Api.Configuration;
+using FlyCheap.Archive;
 using FlyCheap.Models;
 using FlyCheapTelegramBot.Catalog;
 using FlyCheapTelegramBot.StateModels;
@@ -19,14 +20,12 @@ public class TelegramBot
     public TelegramBotClient _botClient = new TelegramBotClient(Configuration.Token);
     public CancellationTokenSource cts = new CancellationTokenSource();
 
-    private List<TgUser> _dbUsers = new List<TgUser>();
-
     public ReceiverOptions _receiverOptions = new ReceiverOptions
     {
         AllowedUpdates = { },
         ThrowPendingUpdates = true
     };
-
+    //Стартовый метод бота
     public async Task Start()
     {
         _botClient.StartReceiving(HandleUpdateAsync, Exсeptions.HandlePollingErrorAsync, _receiverOptions, cts.Token);
@@ -51,9 +50,9 @@ public class TelegramBot
             await HandleCommandMessage(botClient, update, update.Message);
             return;
         }
-        
-       //Cрабатывает метод HandleCallbackQuery, если inline клавиатура
-        if (update.Type == UpdateType.CallbackQuery) 
+
+        //Cрабатывает метод HandleCallbackQuery, если inline клавиатура
+        if (update.Type == UpdateType.CallbackQuery)
         {
             if (update.CallbackQuery != null)
                 await HandleCallbackQuery(botClient, update.CallbackQuery, update.Message);
@@ -145,13 +144,13 @@ public class TelegramBot
     public string GetFinalTickets(Fly fly)
     {
         var sb = new StringBuilder();
-        var apiTravelpayounts =
-            new ApiTravelpayoutsCopy(fly.DepartureCity, fly.ArrivalCity, fly.DepartureDate, fly.DepartureDate);
-        //Дописать вывод в бота информацию
+        var apiTravelpayounts = new ApiTravelpayouts();
+        var readableAirways =
+            apiTravelpayounts.CreatingFlightSearchRequest(fly.DepartureCity, fly.ArrivalCity, fly.DepartureDate);
 
-        if (apiTravelpayounts != 0)
+        /*if (readableAirways != 0)
         {
-            foreach (var flightData in apiTravelpayounts)
+            foreach (var flightData in readableAirways)
             {
                 sb.Append("Аэропорт отправления: " + flightData.origin_airport + "\n");
                 sb.Append("Аэропорт назначения: " + flightData.destination_airport + "\n");
@@ -169,7 +168,8 @@ public class TelegramBot
         else
         {
             return "Авиарейсов по данному направлению не найдено!";
-        }
+        }*/
+        return "Авиарейсов по данному направлению не найдено!";
     }
 
     //Метод обрабатывающий нажатие inline-кнопок

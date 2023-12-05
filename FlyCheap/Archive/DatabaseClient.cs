@@ -1,7 +1,8 @@
-﻿using FlyCheap.Api;
+﻿using FlyCheap.Db;
+using FlyCheap.Models.Db;
 using FlyCheap.Models.Utils;
 
-namespace FlyCheap.Db;
+namespace FlyCheap.Archive;
 
 public class DatabaseClient
 {
@@ -17,7 +18,7 @@ public class DatabaseClient
 
             foreach (var airport in airports)
             {
-                airDbContext.Airports.Add(airport);
+                airDbContext.Airports.Add((Airports)airport);
             }
 
             airDbContext.SaveChanges();

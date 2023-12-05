@@ -4,17 +4,17 @@ using FlyCheap.Models.Db;
 namespace FlyCheap.Converter.Comparators;
 
 
-public class AirportDbComparer : Comparer, IEqualityComparer<Airport>
+public class AirportDbComparer : Comparer, IEqualityComparer<Airports>
 {
-    public bool Equals(Airport x, Airport y)
+    public bool Equals(Airports x, Airports y)
     {
         // Сравниваем по полям, которые должны определять уникальность записей
-        return x.Code == y.Code && x.name == y.name && x.NameTranslationsEn == y.NameTranslationsEn;
+        return x.code == y.code && x.name == y.name && x.name_translations.en == y.name_translations.en;
     }
 
-    public int GetHashCode(Airport obj)
+    public int GetHashCode(Airports obj)
     {
         // Возвращаем хэш-код на основе полей, которые определяют уникальность записей
-        return HashCode.Combine(obj.Code, obj.name, obj.NameTranslationsEn);
+        return HashCode.Combine(obj.code, obj.name, obj.name_translations.en);
     }
 }

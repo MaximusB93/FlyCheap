@@ -1,6 +1,6 @@
 ﻿using FlyCheap.Enums;
 
-namespace FlyCheap;
+namespace FlyCheap.Utility;
 
 public static class ParametersMap
 {

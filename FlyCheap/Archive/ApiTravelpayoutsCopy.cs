@@ -1,7 +1,6 @@
-﻿using FlyCheap.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace FlyCheap.Api;
+namespace FlyCheap.Archive;
 
 public class ApiTravelpayoutsCopy
 {
