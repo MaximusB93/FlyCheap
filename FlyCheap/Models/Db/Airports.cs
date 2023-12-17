@@ -13,7 +13,7 @@ public class Airports : NamedEntity
     [MaxLength(3)] public string code { get; set; }
     [MaxLength(255)] public string iata_type { get; set; }
     [MaxLength(255)] public bool flightable { get; set; }
-    [MaxLength(255)] public NameTranslations name_translations { get; set; }
+    [Required][MaxLength(255)] public string name_translations { get; set; }
     public float lat { get; set; }
     public float lon { get; set; }
 }

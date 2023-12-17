@@ -61,7 +61,7 @@ public class HumanReadableConverter
                 .AsNoTracking()
                 .FirstOrDefault(x => x
                     .code == airlineCode)
-                ?.name_translations.en;
+                ?.name_translations;
         }
     }
 

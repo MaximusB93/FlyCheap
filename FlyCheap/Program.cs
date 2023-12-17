@@ -14,9 +14,9 @@ static class Program
     {
         Console.WriteLine("Start");
         
-        _converter.ChangeMethodUpdateCollection(TableCode.Airports, LanguageCode.Russian);
-        _converter.ChangeMethodUpdateCollection(TableCode.Cities, LanguageCode.Russian);
-        _converter.ChangeMethodUpdateCollection(TableCode.Airlines, LanguageCode.Russian);
+        //_converter.ChangeMethodUpdateCollection(TableCode.Airports, LanguageCode.Russian);
+        //_converter.ChangeMethodUpdateCollection(TableCode.Cities, LanguageCode.Russian);
+        //_converter.ChangeMethodUpdateCollection(TableCode.Airlines, LanguageCode.Russian);
         _converter.ChangeMethodUpdateCollection(TableCode.Countries, LanguageCode.Russian);
 
         Console.WriteLine("Stop");

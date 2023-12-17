@@ -4,6 +4,7 @@ namespace FlyCheap.Utility;
 
 public static class ParametersMap
 {
+    //Словарь ссылок
     public static Dictionary<TableCode, string> TableFileMappings { get; } = new()
     {
         { TableCode.Airports, "airports.json" },
@@ -15,6 +16,7 @@ public static class ParametersMap
         { TableCode.Routes, "routes.json" },
     };
 
+    //Словарь языков
     public static Dictionary<LanguageCode, string> LanguageMappings { get; } = new()
     {
         { LanguageCode.None, "" },

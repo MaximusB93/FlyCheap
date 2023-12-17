@@ -25,6 +25,7 @@ public class TelegramBot
         AllowedUpdates = { },
         ThrowPendingUpdates = true
     };
+
     //Стартовый метод бота
     public async Task Start()
     {
@@ -82,11 +83,11 @@ public class TelegramBot
 
             //Парсим город вылета
             case InputState.DepartureСity:
-                selectedCityFromList = DataBaseUtils.ParsingCity(tgId, text, user);
+                selectedCityFromList = DataBaseUtils.ParsingCity(tgId, message.Text, user);
                 if (selectedCityFromList != null)
                 {
                     flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
-                    DataBaseUtils.SaveResultsToList(flight.DepartureCity, selectedCityFromList, InputState.ArrivalCity,
+                    DataBaseUtils.SaveResultsToList1(flight, selectedCityFromList, InputState.ArrivalCity,
                         user);
                     DataBaseUtils.SendMessage(botClient, tgId,
                         $"Ваш город вылета {selectedCityFromList}, введите город назначения");
@@ -98,11 +99,11 @@ public class TelegramBot
 
             //Парсим город прибытия
             case InputState.ArrivalCity:
-                selectedCityFromList = DataBaseUtils.ParsingCity(tgId, text, user);
+                selectedCityFromList = DataBaseUtils.ParsingCity(tgId, message.Text, user);
                 if (selectedCityFromList != null)
                 {
                     flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
-                    DataBaseUtils.SaveResultsToList(flight.ArrivalCity, selectedCityFromList, InputState.DepartureDate,
+                    DataBaseUtils.SaveResultsToList2(flight, selectedCityFromList, InputState.DepartureDate,
                         user);
                     DataBaseUtils.SendMessage(botClient, tgId,
                         $"Ваш город назначение {selectedCityFromList}, введите дату вылета в формате ДД.ММ.ГГГГ");
@@ -114,11 +115,11 @@ public class TelegramBot
 
             //Парсим дату отправления
             case InputState.DepartureDate:
-                var dateFromMessage = text;
+                var dateFromMessage = message.Text;
                 if (DateTime.TryParse(dateFromMessage, out DateTime parseDateTime))
                 {
                     flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
-                    DataBaseUtils.SaveResultsToList(flight.DepartureDate, parseDateTime, InputState.FullState, user);
+                    DataBaseUtils.SaveResultsToList3(flight, parseDateTime, InputState.FullState, user);
                 }
                 else
                     await botClient.SendTextMessageAsync(tgId,
@@ -128,6 +129,7 @@ public class TelegramBot
 
             //Все данные получены, выводим ответ
             case InputState.FullState:
+                var dateFromMessage2 = message.Text;
                 flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
                 var result = GetFinalTickets(flight);
                 await botClient.SendTextMessageAsync(tgId, "Результат поиска:" + result);
@@ -144,19 +146,19 @@ public class TelegramBot
     public string GetFinalTickets(Fly fly)
     {
         var sb = new StringBuilder();
-        var apiTravelpayounts = new ApiTravelpayouts();
-        var readableAirways =
-            apiTravelpayounts.CreatingFlightSearchRequest(fly.DepartureCity, fly.ArrivalCity, fly.DepartureDate);
+        var apiTravelpayouts = new ApiTravelpayouts();
+        var airways = apiTravelpayouts.CreatingFlightSearchRequest(fly.DepartureCity,
+            fly.ArrivalCity, fly.DepartureDate);
 
-        /*if (readableAirways != 0)
+        if (airways.data.Count != 0)
         {
-            foreach (var flightData in readableAirways)
+            foreach (var flightData in airways.data)
             {
                 sb.Append("Аэропорт отправления: " + flightData.origin_airport + "\n");
                 sb.Append("Аэропорт назначения: " + flightData.destination_airport + "\n");
                 sb.Append("Время отправления: " + flightData.departure_at + "\n");
                 sb.Append("Авиакомпания: " + flightData.airline + "\n");
-                sb.Append("Цена: " + flightData.price + " " + apiTravelpayounts.currency + "\n");
+                sb.Append("Цена: " + flightData.price + " " + airways.currency + "\n");
                 sb.Append("Продолжительность полёта: " + flightData.duration + " Мин." + "\n");
                 sb.Append("Номер рейса: " + flightData.flight_number + "\n");
                 sb.Append("----------------------------------------------" + "\n");
@@ -168,7 +170,8 @@ public class TelegramBot
         else
         {
             return "Авиарейсов по данному направлению не найдено!";
-        }*/
+        }
+
         return "Авиарейсов по данному направлению не найдено!";
     }
 

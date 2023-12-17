@@ -30,8 +30,6 @@ public class ApiForRequestDb
         LanguageCode languageCode = LanguageCode.Russian /*string language = "ru/"*/)
         where TOutput : IEnumerable<NamedEntity>
     {
-        //if (file is "planes.json" or "routes.json") language = "";
-
         var file = ParametersMap.TableFileMappings.FirstOrDefault(x => x.Key == tableCode)
             .Value; //Сверяем tableCode и записываем название json
         var lang = ParametersMap.LanguageMappings.FirstOrDefault(x => x.Key == languageCode)
@@ -42,7 +40,7 @@ public class ApiForRequestDb
             lang = ParametersMap.LanguageMappings.FirstOrDefault(x => x.Key == LanguageCode.None).Value;
         }
 
-        //Записываем file и lang в экземпляр класса HttpRequestForRequestFromDataBase
+        //Записываем file и lang в экземпляр класса HttpRequestForRequestFromDataBase для
         var RequestFromDataBase = new HttpRequestForRequestFromDataBase()
         {
             file = file,
@@ -106,6 +104,11 @@ public class ApiForRequestDb
 
         foreach (var item in output)
         {
+            if (item.name == null)
+            {
+                item.name = "none"; // Заменяем значение поля name на пустую строку
+            }
+            
             if (item.name == null)
             {
                 item.name = "none"; // Заменяем значение поля name на пустую строку

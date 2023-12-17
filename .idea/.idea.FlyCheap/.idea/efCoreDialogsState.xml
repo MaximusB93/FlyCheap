@@ -3,7 +3,7 @@
   <component name="EfCoreDialogsState">
     <option name="keyValueStorage">
       <map>
-        <entry key="Common:5e07e118-aac3-4bb2-a51e-ffe45959b15e:dbContext" value="FlyCheap.Db.AirportsDbContext" />
+        <entry key="Common:5e07e118-aac3-4bb2-a51e-ffe45959b15e:dbContext" value="FlyCheap.Db.AirDbContext" />
         <entry key="Common:buildConfiguration" value="Debug" />
         <entry key="Common:noBuild" value="false" />
         <entry key="Common:outputFolder" value="Migrations" />

@@ -27,15 +27,11 @@ public class AirDbContext : DbContext
         optionsBuilder.UseNpgsql(ConnectionString);
         optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
     }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Coordinates>()
-            .HasKey(c => c.lat);
-
-        modelBuilder.Entity<Cases>().HasKey(x => x.da);
-        modelBuilder.Entity<NameTranslations>().HasKey(x => x.en);
-        //modelBuilder.Entity<>
-        
-        //base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<NameTranslations>().HasKey(x => x.Id);
+        modelBuilder.Entity<Cases>().HasKey(x => x.Id);
+        modelBuilder.Entity<Coordinates>().HasKey(x => x.Id);
     }
 }

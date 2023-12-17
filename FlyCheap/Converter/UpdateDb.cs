@@ -34,7 +34,7 @@ public class UpdateDb
                             languageCode)); //В GetDataBase получаем лист с аэропортами, а в CreateAirportsDb преобразуем из JSON формата List<AirportJson> в формат БД List<Airport>
                 if (airports != null)
                 {
-                    RequestToDb<Airports>(airports, new AirportDbComparer()); //
+                    RequestToDb<Airports>(airports, new AirportDbComparer()); //Сохранение в базу
                 }
 
                 break;
@@ -60,7 +60,7 @@ public class UpdateDb
     }
 
 
-    private static void RequestToDb<T>(IEnumerable<NamedEntity> request, Comparer comparer) where T : NamedEntity
+    private static void RequestToDb<T>(IEnumerable<NamedEntity> request, Comparer comparer) where T : NamedEntity //Сохранение в базу
     {
         using var dbContext = new AirDbContext();
 
@@ -69,7 +69,7 @@ public class UpdateDb
             .Except(dbContext.Set<T>(), (IEqualityComparer<T>?)comparer)
             .ToList();
 
-        dbContext.Set<T>().AddRange(differences); // Используем DbSet<T> для добавления
+        dbContext.Set<T>().AddRange(differences); // Используем DbSet<T> для добавления в базу
         dbContext.SaveChanges();
     }
 
@@ -119,7 +119,7 @@ public class UpdateDb
                 city_code = x.city_code,
                 country_code = x.country_code,
                 name = x.name,
-                name_translations = x.name_translations,
+                name_translations = x.name_translations.en,
                 time_zone = x.time_zone,
                 iata_type = x.iata_type,
                 lat = x.coordinates.lat,
@@ -139,7 +139,7 @@ public class UpdateDb
                 {
                     code = x.code,
                     name = x.name,
-                    name_translations = x.name_translations,
+                    name_translations = x.name_translations.en,
                     is_lowcost = x.is_lowcost,
                 }).ToList();
         }

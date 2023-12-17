@@ -33,4 +33,19 @@ public class DataBaseUtils
         flight = data;
         user.InputState = inputState;
     }
+    public static void SaveResultsToList1(Fly flight, string data, InputState inputState, User user)
+    {
+        flight.DepartureCity = data;
+        user.InputState = inputState;
+    }
+    public static void SaveResultsToList2(Fly flight, string data, InputState inputState, User user)
+    {
+        flight.ArrivalCity = data;
+        user.InputState = inputState;
+    }
+    public static void SaveResultsToList3(Fly flight, DateTime data, InputState inputState, User user)
+    {
+        flight.DepartureDate = data;
+        user.InputState = inputState;
+    }
 }

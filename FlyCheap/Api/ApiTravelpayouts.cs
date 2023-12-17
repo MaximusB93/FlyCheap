@@ -65,7 +65,7 @@ public class ApiTravelpayouts
             {
                 httpRequest.destination = airportFinal.code;
                 httpRequest.departureDate = flightData.departureDate;
-                httpRequest.returnDate = flightData.returnDate;
+                //httpRequest.returnDate = flightData.returnDate;
                 Thread.Sleep(100);
 
                 try
@@ -137,13 +137,13 @@ public class ApiTravelpayouts
 
     public List<Airports>? FindAirports(string cityOrAirport = "", string iataType = "airport")
     {
-        using (AirDbContext airDbContext = new())
+        using (AirDbContext airDbContext = new AirDbContext())
         {
             //Возвращаем IATA города на основании названия города
             var cityCode = airDbContext.Cities
                 .AsNoTracking()
                 .FirstOrDefault(x =>
-                    x.name.Contains(cityOrAirport.Trim()) || x.name_translations.en.Contains(cityOrAirport.Trim()))
+                    x.name.Contains(cityOrAirport.Trim()))
                 ?.code;
 
             if (cityCode != null)
@@ -159,7 +159,7 @@ public class ApiTravelpayouts
             var airport = airDbContext.Airports
                 .AsNoTracking()
                 .FirstOrDefault(x =>
-                    x.name.Contains(cityOrAirport.Trim()) || x.name_translations.en.Contains(cityOrAirport.Trim()));
+                    x.name.Contains(cityOrAirport.Trim()) || x.name_translations.Contains(cityOrAirport.Trim()));
             if (airport != null)
             {
                 List<Airports>? airportsList = new List<Airports>();
