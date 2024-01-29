@@ -14,6 +14,6 @@ public class Cities : NamedEntity
     public double lon { get; set; }
     public double lat { get; set; } 
 
-    public string name_translations { get; set; }
+    //public string name_translations { get; set; }
     //public Cases cases { get; set; }
 }

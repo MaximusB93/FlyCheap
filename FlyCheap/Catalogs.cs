@@ -11,11 +11,11 @@ public class Catalogs
         return airDbContext.Cities
             .AsNoTracking()
             .Select(x => x.name)
-            .ToList()
-           // .Union(airDbContext.Cities //Объединение последовательностей
-                //.AsNoTracking()
-                //.Select(x => x.name_translations)
-                //.ToList())
             .ToList();
+        // .Union(airDbContext.Cities //Объединение последовательностей
+        //.AsNoTracking()
+        //.Select(x => x.name_translations)
+        //.ToList())
+        //.ToList();
     }
 }
