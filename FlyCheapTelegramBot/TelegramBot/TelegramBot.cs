@@ -75,7 +75,7 @@ public class TelegramBot
         }
 
         string? selectedCityFromList;
-        Fly? flight;
+        Fly flight = new Fly(tgId);
         switch (user.InputState)
         {
             case InputState.None:
@@ -89,7 +89,7 @@ public class TelegramBot
                     flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
                     DataBaseUtils.SaveResultsToList1(flight, selectedCityFromList, InputState.ArrivalCity,
                         user);
-                    DataBaseUtils.SendMessage(botClient, tgId,
+                    await DataBaseUtils.SendMessage(botClient, tgId,
                         $"Ваш город вылета {selectedCityFromList}, введите город назначения");
                 }
                 else
@@ -105,34 +105,27 @@ public class TelegramBot
                     flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
                     DataBaseUtils.SaveResultsToList2(flight, selectedCityFromList, InputState.DepartureDate,
                         user);
-                    DataBaseUtils.SendMessage(botClient, tgId,
+                    await DataBaseUtils.SendMessage(botClient, tgId,
                         $"Ваш город назначение {selectedCityFromList}, введите дату вылета в формате ДД.ММ.ГГГГ");
                 }
                 else
-                    DataBaseUtils.SendMessage(botClient, tgId, "Город назначения не найден - повторите ввод");
+                    await DataBaseUtils.SendMessage(botClient, tgId, "Город назначения не найден - повторите ввод");
 
                 break;
 
-            //Парсим дату отправления
+            //Парсим дату отправления и выводим результат
             case InputState.DepartureDate:
                 var dateFromMessage = message.Text;
                 if (DateTime.TryParse(dateFromMessage, out DateTime parseDateTime))
                 {
                     flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
                     DataBaseUtils.SaveResultsToList3(flight, parseDateTime, InputState.FullState, user);
+                    await ViewResult(flight, botClient);
                 }
                 else
                     await botClient.SendTextMessageAsync(tgId,
                         "Дата вылета введена неверно - повторите ввод в формате  дд.мм.гггг");
 
-                break;
-
-            //Все данные получены, выводим ответ
-            case InputState.FullState:
-                var dateFromMessage2 = message.Text;
-                flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
-                var result = GetFinalTickets(flight);
-                await botClient.SendTextMessageAsync(tgId, "Результат поиска:" + result);
                 break;
 
             //Дефолтный ответ бота в случае неправильного ввода команды пользователем
@@ -141,6 +134,16 @@ public class TelegramBot
                     $"Для начала работы с ботом FlyCheap, введите команду /start \n");
                 break;
         }
+    }
+
+    //Все данные получены, выводим ответ
+    public async Task ViewResult(Fly flight, ITelegramBotClient botClient)
+    {
+        var result = GetFinalTickets(flight);
+        await DataBaseUtils.SendMessage(botClient, flight.UserTgId, $"Результат поиска: \n \n{result}");
+        await botClient.SendTextMessageAsync(flight.UserTgId, "Выберите действие:",
+            replyMarkup: MainMenu.GetMainMenu());
+        Console.WriteLine($"{flight.UserTgId} - {flight.DepartureCity} - {flight.ArrivalCity}");
     }
 
     public string GetFinalTickets(Fly fly)
@@ -168,11 +171,7 @@ public class TelegramBot
         }
 
         else
-        {
             return "Авиарейсов по данному направлению не найдено!";
-        }
-
-        return "Авиарейсов по данному направлению не найдено!";
     }
 
     //Метод обрабатывающий нажатие inline-кнопок

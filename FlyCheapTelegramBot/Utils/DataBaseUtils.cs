@@ -18,7 +18,7 @@ public class DataBaseUtils
     public static Fly SearchFlyByUserTgId(long tgId)
     {
         var flight =
-            FlightsList.flights.First(x => x.UserTgId == tgId && x.resultTickets == null); //Находим Id в листе
+            FlightsList.flights.Last(x => x.UserTgId == tgId /*&& x.resultTickets == null*/); //Находим Id в листе
         return flight;
     }
 
@@ -28,9 +28,9 @@ public class DataBaseUtils
         await botClient.SendTextMessageAsync(tgId, message);
     }
 
-    public static void SaveResultsToList<T>(T flight, T data, InputState inputState, User user)
+    public static void SaveResultsToList<T>(T flightSource, T data, InputState inputState, User user)
     {
-        flight = data;
+        flightSource = data;
         user.InputState = inputState;
     }
     public static void SaveResultsToList1(Fly flight, string data, InputState inputState, User user)

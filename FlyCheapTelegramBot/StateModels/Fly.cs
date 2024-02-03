@@ -7,7 +7,7 @@ public class Fly
     public string DepartureCity { get; set; }
     public string ArrivalCity { get; set; }
     public DateTime DepartureDate { get; set; }
-    public string resultTickets = null;
+    //public string resultTickets = null; //Понять как использовать
 
     public Fly(long userTgId)
     {
