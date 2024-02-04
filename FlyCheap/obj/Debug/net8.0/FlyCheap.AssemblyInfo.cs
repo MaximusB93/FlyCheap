@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FlyCheap")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6837b408bbdbfb710d457f6aef57e14e273f0d2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ec4f38e45cc4308fe2c16f614d0657467489d295")]
 [assembly: System.Reflection.AssemblyProductAttribute("FlyCheap")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FlyCheap")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

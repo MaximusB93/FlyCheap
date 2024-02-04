@@ -87,8 +87,8 @@ public class TelegramBot
                 if (selectedCityFromList != null)
                 {
                     flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
-                    DataBaseUtils.SaveResultsToList1(flight, selectedCityFromList, InputState.ArrivalCity,
-                        user);
+                    flight.DepartureCity = selectedCityFromList;
+                    user.InputState = InputState.ArrivalCity;
                     await DataBaseUtils.SendMessage(botClient, tgId,
                         $"Ваш город вылета {selectedCityFromList}, введите город назначения");
                 }
@@ -103,8 +103,8 @@ public class TelegramBot
                 if (selectedCityFromList != null)
                 {
                     flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
-                    DataBaseUtils.SaveResultsToList2(flight, selectedCityFromList, InputState.DepartureDate,
-                        user);
+                    flight.ArrivalCity = selectedCityFromList;
+                    user.InputState = InputState.DepartureDate;
                     await DataBaseUtils.SendMessage(botClient, tgId,
                         $"Ваш город назначение {selectedCityFromList}, введите дату вылета в формате ДД.ММ.ГГГГ");
                 }
@@ -119,7 +119,8 @@ public class TelegramBot
                 if (DateTime.TryParse(dateFromMessage, out DateTime parseDateTime))
                 {
                     flight = DataBaseUtils.SearchFlyByUserTgId(tgId);
-                    DataBaseUtils.SaveResultsToList3(flight, parseDateTime, InputState.FullState, user);
+                    flight.DepartureDate = parseDateTime;
+                    user.InputState = InputState.FullState;
                     await ViewResult(flight, botClient);
                 }
                 else
@@ -180,6 +181,7 @@ public class TelegramBot
     {
         var tgId = callbackQuery.From.Id;
         var user = UserUtils.GetOrCreate(tgId);
+        var flights = FlightsList.flights;
 
         await botClient.AnswerCallbackQueryAsync(callbackQuery.Id);
 
@@ -197,12 +199,20 @@ public class TelegramBot
         if (callbackQuery.Data.StartsWith("myFlight"))
         {
             await botClient.SendTextMessageAsync(callbackQuery.Message.Chat.Id, "Мои авиарейсы");
+            await botClient.SendTextMessageAsync(user.TgId, "Выберите рейс",
+                replyMarkup: MainMenu.GetMainFlight(flights));
+            return;
+        }
+
+        if (callbackQuery.Data.StartsWith($"flight"))
+        {
+            Int32.TryParse(callbackQuery.Data.Substring("flight_".Length), out int flightIndex);
+            await ViewResult(flights[flightIndex], botClient);
             return;
         }
 
         await botClient.SendTextMessageAsync(callbackQuery.Message.Chat.Id,
             $"You choose with data: {callbackQuery.Data}");
         //await botClient.SendTextMessageAsync(message.Chat.Id, "Бот не умеет распознавать сообщения. \r\n Выберите один из вариантов", replyMarkup: MainMenu.GetMainMenu());
-        return;
     }
 }
