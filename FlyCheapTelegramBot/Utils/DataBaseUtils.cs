@@ -1,4 +1,5 @@
-﻿using FlyCheapTelegramBot.Catalog;
+﻿using System.Globalization;
+using FlyCheapTelegramBot.Catalog;
 using FlyCheapTelegramBot.StateModels;
 using Telegram.Bot;
 
@@ -9,9 +10,10 @@ public class DataBaseUtils
     //Парсим города отправления и прибытия
     public static string? ParsingCity(long tgId, string cityFromMessage, User user)
     {
+        TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
         var selectedCityFromList =
             CitiesCatalog.cities.FirstOrDefault(x =>
-                x.Contains(cityFromMessage)); //Проверяем есть ли такой город в базе
+                x.Contains(ti.ToTitleCase(cityFromMessage))); //Проверяем есть ли такой город в базе
         return selectedCityFromList;
     }
 

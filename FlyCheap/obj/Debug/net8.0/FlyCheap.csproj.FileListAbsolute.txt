@@ -109,3 +109,4 @@ C:\Users\mbudn\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\refint\FlyCheap.
 C:\Users\mbudn\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.pdb
 C:\Users\mbudn\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\FlyCheap.genruntimeconfig.cache
 C:\Users\mbudn\RiderProjects\FlyCheap\FlyCheap\obj\Debug\net8.0\ref\FlyCheap.dll
+C:\Users\Академия Трафика\RiderProjects\FlyCheap\FlyCheap\bin\Debug\net8.0\Telegram.Bot.dll

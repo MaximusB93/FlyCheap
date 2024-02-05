@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 using FlyCheap;
 using FlyCheap.Api;
 using FlyCheap.Api.Configuration;
@@ -200,11 +201,11 @@ public class TelegramBot
         {
             await botClient.SendTextMessageAsync(callbackQuery.Message.Chat.Id, "Мои авиарейсы");
             await botClient.SendTextMessageAsync(user.TgId, "Выберите рейс",
-                replyMarkup: MainMenu.GetMainFlight(flights));
+                replyMarkup: MainMenu.GetMainFlight(flights, user.TgId));
             return;
         }
 
-        if (callbackQuery.Data.StartsWith($"flight"))
+        if (callbackQuery.Data.StartsWith("flight"))
         {
             Int32.TryParse(callbackQuery.Data.Substring("flight_".Length), out int flightIndex);
             await ViewResult(flights[flightIndex], botClient);

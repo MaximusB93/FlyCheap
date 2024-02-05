@@ -18,15 +18,16 @@ public class MainMenu
         return mainMenu;
     }
 
-    public static IReplyMarkup GetMainFlight(List<Fly> flights)
+    public static IReplyMarkup GetMainFlight(List<Fly> flights, long userTgId)
     {
         InlineKeyboardMarkup mainFlight = null;
-        if (flights.Count != 0)
+        var flightTgId = flights.Where(x => x.UserTgId == userTgId).ToList();  //Выбор нужного пользователя по Id для показа истории
+        if (flightTgId.Count != 0)
         {
             List<List<InlineKeyboardButton>> buttons = new List<List<InlineKeyboardButton>>();
-            for (int i = 0; i < flights.Count; i++)
+            for (int i = 0; i < flightTgId.Count; i++)
             {
-                var flight = flights[i];
+                var flight = flightTgId[i];
 
                 var button =
                     InlineKeyboardButton.WithCallbackData($"{flight.DepartureCity} - {flight.ArrivalCity}",
